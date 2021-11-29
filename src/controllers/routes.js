@@ -11,5 +11,5 @@ router.post(
   registerUser.service
 );
 router.post("/login", loginUser.validation, validator, loginUser.service);
-router.get("/get", auth.checkJWT, getUser.service);
+router.get("/", auth.checkJWT, getUser.service);
 module.exports = router;

@@ -2,7 +2,9 @@ const jwt = require("jsonwebtoken");
 
 const createJWT = (user) => {
   delete user.dataValues.password;
-  const token = jwt.sign(user, "skill-test", { expiresIn: "1h" });
+  const token = jwt.sign({ user: user.dataValues }, "skill-test", {
+    expiresIn: "1h",
+  });
   return token;
 };
 
@@ -15,7 +17,7 @@ const checkJWT = (req, res, next) => {
           message: "Invalid token",
         });
       } else {
-        req.user = decoded;
+        req.auth = decoded;
         next();
       }
     });

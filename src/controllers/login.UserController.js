@@ -1,7 +1,7 @@
 const { users } = require("../models");
 const { compareSync } = require("bcrypt");
 const { body } = require("express-validator");
-const jwt = require("../middlewares/jwt");
+const { createJWT } = require("../middlewares/jwt");
 const service = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -12,7 +12,7 @@ const service = async (req, res, next) => {
     if (!compareSync(password, user.password)) {
       throw new Error("Password is incorrect");
     }
-    const token = jwt.sign({ id: user.id });
+    const token = createJWT(user);
     return res.status(200).json({
       message: "Login Success",
       token,

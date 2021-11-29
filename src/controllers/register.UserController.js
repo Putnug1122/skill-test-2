@@ -55,15 +55,7 @@ const validation = [
         return Promise.reject("Phone must be 10-13 characters");
       }
     }),
-  body("gender")
-    .notEmpty()
-    .withMessage("gender is required")
-    .custom(async (value) => {
-      //must be laki-laki or perempuan
-      if (value !== "laki-laki" || value !== "perempuan") {
-        return Promise.reject("Gender harus laki-laki dan perempuan");
-      }
-    }),
+  body("gender").notEmpty().withMessage("gender is required"),
 ];
 
 module.exports = { service, validation };

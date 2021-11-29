@@ -2,13 +2,20 @@ const { users } = require("../models");
 const service = async (req, res) => {
   try {
     const where = {};
-    if (req.param.id) {
-      where.id = req.param.id;
+    if (req.auth.id) {
+      where.id = req.auth.id;
     }
     const user = await users.findAll({
       where,
       attributes: {
-        include: ["name", "gender", "phone"],
+        exclude: [
+          "password",
+          "id",
+          "email",
+          "address",
+          "createdAt",
+          "updatedAt",
+        ],
       },
     });
     return res.json(user);
